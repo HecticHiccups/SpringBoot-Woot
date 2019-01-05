@@ -31,9 +31,6 @@ public class Product {
 	private String createdAt;
 
 
-
-
-
 	public String getProductImage() {
 		return productImage;
 	}

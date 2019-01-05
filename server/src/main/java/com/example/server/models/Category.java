@@ -2,6 +2,8 @@ package com.example.server.models;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
@@ -22,16 +24,54 @@ public class Category {
 	/**
 	 * TODO:Look more into..Eager vs Lazy
 	 */
+
 	@JsonIgnore
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name = "productID")
 	private Product product;
 
-	@Column(name = "updated_At", length = 30)
+	@UpdateTimestamp
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "updated_At", length = 30, insertable=false)
 	private Date updatedAt;
 
-	@Column(name = "created_At", length = 30)
-	private String createdAt;
+	@CreationTimestamp
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "created_At", length = 30, insertable=false)
+	private Date createdAt;
+
+
+	public Long getCategoryID() {
+		return categoryID;
+	}
+
+	public void setCategoryID(Long categoryID) {
+		this.categoryID = categoryID;
+	}
+
+	public Product getProduct() {
+		return product;
+	}
+
+	public void setProduct(Product product) {
+		this.product = product;
+	}
+
+	public Date getUpdatedAt() {
+		return updatedAt;
+	}
+
+	public void setUpdatedAt(Date updatedAt) {
+		this.updatedAt = updatedAt;
+	}
+
+	public Date getCreatedAt() {
+		return createdAt;
+	}
+
+	public void setCreatedAt(Date createdAt) {
+		this.createdAt = createdAt;
+	}
 
 
 }
