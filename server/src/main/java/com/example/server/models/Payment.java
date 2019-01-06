@@ -1,10 +1,12 @@
 package com.example.server.models;
 
-import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.persistence.Entity;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 import java.util.Date;
+
 
 public class Payment {
 
@@ -14,7 +16,6 @@ public class Payment {
 
 	private int cvvNum;
 
-	@DateTimeFormat(pattern = "mm/yyyy")
 	private Date expiration;
 
 }

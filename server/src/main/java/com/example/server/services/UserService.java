@@ -1,5 +1,6 @@
 package com.example.server.services;
 
+import com.example.server.exceptions.UserNotFoundException;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.example.server.models.User;
@@ -15,6 +16,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import java.net.URI;
 
+
+/**
+ * User CRUD API, Request with combination of /api/user/{id}
+ * NoteToSelf:Responsive Entities are Generics, they can return any type except Optional.
+ * Optionals are returned by Repository methods.
+ */
+
 @RestController
 @RequestMapping("/api")
 public class UserService {
@@ -29,7 +37,7 @@ public class UserService {
 		this.userRepository = userRepository;
 	}
 
-	@CrossOrigin(origins = "http://localhost:3000")
+	//@CrossOrigin(origins = "http://localhost:3000")
 	@PostMapping(value = "/user")
 	public ResponseEntity<User> createUser(@Valid @RequestBody User user) throws URISyntaxException{
 		log.info("Request to create user: {}", user);
@@ -37,7 +45,7 @@ public class UserService {
 		return ResponseEntity.created(new URI("/api/user/" + result.getUserID())).body(result);
 	}
 
-	@CrossOrigin(origins = "http://localhost:3000")
+	//@CrossOrigin(origins = "http://localhost:3000")
 	@PutMapping(value = "/user")
 	public ResponseEntity<User> updateUser(@Valid @RequestBody User user){
 		log.info("Request to update group: {}", user);
@@ -45,7 +53,7 @@ public class UserService {
 		return ResponseEntity.ok().body(result);
 	}
 
-	@CrossOrigin(origins = "http://localhost:3000")
+	//@CrossOrigin(origins = "http://localhost:3000")
 	@DeleteMapping(value = "/user/{id}")
 	public ResponseEntity<User> deleteUser(@PathVariable Long id){
 		log.info("Request to delete user: {}", id);
@@ -53,7 +61,7 @@ public class UserService {
 		return ResponseEntity.ok().build();
 	}
 
-	@CrossOrigin(origins = "http://localhost:3000")
+	//@CrossOrigin(origins = "http://localhost:3000")
 	@GetMapping(value = "/user/{id}")
 	ResponseEntity<?> getUser(@PathVariable Long id) {
 		Optional<User> user = userRepository.findById(id);
@@ -61,7 +69,7 @@ public class UserService {
 				.orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
 	}
 
-	@CrossOrigin(origins = "http://localhost:3000")
+	//@CrossOrigin(origins = "http://localhost:3000")
 	@GetMapping(value = "/users")
 	public Iterable<User> getAllUsers() {
 		return userRepository.findAll();

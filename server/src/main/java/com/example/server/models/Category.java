@@ -30,12 +30,14 @@ public class Category {
 	@JoinColumn(name = "productID")
 	private Product product;
 
-	@UpdateTimestamp
+	@LastModifiedDate
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "updated_At", length = 30, insertable=false)
 	private Date updatedAt;
 
-	@CreationTimestamp
+
+
+	@CreatedDate
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "created_At", length = 30, insertable=false)
 	private Date createdAt;
