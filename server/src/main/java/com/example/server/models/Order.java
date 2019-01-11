@@ -1,17 +1,19 @@
 package com.example.server.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Date;
 
+
 @Entity
-@Table(name = "order")
+@Table(name = "order_table")
 public class Order {
 
 	@Id
 	@Column(name = "orderNum")
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long orderNum;
 
 
@@ -19,19 +21,94 @@ public class Order {
 	private String orderStatus;
 
 	@Column(name = "order_Total")
-	private int orderTotal;
+	private double orderTotal;
+
 
 	/**
-	 * Proper example 1 order has Many Products
+	 * Ignores JSON
+	 * M-1 Relationship
+	 * Creates UserID Column in Orders_Table
 	 */
+	@JsonIgnore
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "userID", nullable = false)
+	private User user;
 
-	@OneToMany(fetch = FetchType.LAZY)
-	@JoinColumn(name = "productID")
-	private List<Product> product;
+//
+////Creating FkUserID Column in Orders Table
+//	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+//	@JoinColumn(name = "userID", nullable = false)
+//	@OnDelete(action = OnDeleteAction.CASCADE)
+//	@JsonIgnore
+//	private User user;
+
+
+//	@OneToOne(fetch = FetchType.LAZY)
+//	@MapsId
+//	private Shipping shipping;
+
+	/**
+	 * Ignores JSON
+	 * 1-1 Relationship
+	 * Creates shipNum Column in Orders_Table
+	 */
+	@JsonIgnore
+	@OneToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name="shipNum", nullable=false)
+	private Shipping ship;
 
 
 	@Column(name = "order_Date")
-	private String orderDate;
+	private Date orderDate;
+
+	public Date getOrderDate() {
+		return orderDate;
+	}
+
+	public Shipping getShip() {
+		return ship;
+	}
+
+	public void setShip(Shipping ship) {
+		this.ship = ship;
+	}
+
+	public void setOrderDate(Date orderDate) {
+		this.orderDate = orderDate;
+	}
+
+	public Long getOrderNum() {
+		return orderNum;
+	}
+
+	public void setOrderNum(Long orderNum) {
+		this.orderNum = orderNum;
+	}
+
+	public String getOrderStatus() {
+		return orderStatus;
+	}
+
+	public void setOrderStatus(String orderStatus) {
+		this.orderStatus = orderStatus;
+	}
+
+	public double getOrderTotal() {
+		return orderTotal;
+	}
+
+	public void setOrderTotal(double orderTotal) {
+		this.orderTotal = orderTotal;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
 
 
 

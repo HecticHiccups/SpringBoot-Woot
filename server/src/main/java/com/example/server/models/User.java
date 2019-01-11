@@ -1,6 +1,12 @@
 package com.example.server.models;
 
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
+
 import javax.persistence.*;
+import java.util.List;
 
 
 @Entity
@@ -27,6 +33,16 @@ public class User {
 
 	@Column(name = "password")
 	private String password;
+
+	/**
+	 * Ignore this property in Json Response
+	 * List of Orders stored
+	 * 1-M Relationship
+	 */
+	@JsonIgnore
+	@NotFound(action = NotFoundAction.IGNORE)
+	@OneToMany(fetch=FetchType.LAZY, cascade = CascadeType.ALL, mappedBy="user")
+	private List<Order> orders;
 
 
 	@Column(name = "adminRole")

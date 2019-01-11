@@ -37,7 +37,13 @@ public class UserService {
 		this.userRepository = userRepository;
 	}
 
-	//@CrossOrigin(origins = "http://localhost:3000")
+	/**
+	 * Updates
+	 * @param user
+	 * @return
+	 * @throws URISyntaxException
+	 */
+	@CrossOrigin(origins = "http://localhost:3000")
 	@PostMapping(value = "/user")
 	public ResponseEntity<User> createUser(@Valid @RequestBody User user) throws URISyntaxException{
 		log.info("Request to create user: {}", user);
@@ -45,7 +51,14 @@ public class UserService {
 		return ResponseEntity.created(new URI("/api/user/" + result.getUserID())).body(result);
 	}
 
-	//@CrossOrigin(origins = "http://localhost:3000")
+	/**
+	 * Updates Object of user being sent with ID
+	 * @param user
+	 * @return
+	 * TODO:Create partial updates patch https://www.baeldung.com/http-put-patch-difference-spring
+	 *
+	 */
+	@CrossOrigin(origins = "http://localhost:3000")
 	@PutMapping(value = "/user")
 	public ResponseEntity<User> updateUser(@Valid @RequestBody User user){
 		log.info("Request to update group: {}", user);
@@ -53,7 +66,12 @@ public class UserService {
 		return ResponseEntity.ok().body(result);
 	}
 
-	//@CrossOrigin(origins = "http://localhost:3000")
+	/**
+	 * Deletes specific user by ID
+	 * @param id
+	 * @return
+	 */
+	@CrossOrigin(origins = "http://localhost:3000")
 	@DeleteMapping(value = "/user/{id}")
 	public ResponseEntity<User> deleteUser(@PathVariable Long id){
 		log.info("Request to delete user: {}", id);
@@ -61,7 +79,12 @@ public class UserService {
 		return ResponseEntity.ok().build();
 	}
 
-	//@CrossOrigin(origins = "http://localhost:3000")
+	/**
+	 * Retrieves specific user by ID param
+	 * @param id
+	 * @return
+	 */
+	@CrossOrigin(origins = "http://localhost:3000")
 	@GetMapping(value = "/user/{id}")
 	ResponseEntity<?> getUser(@PathVariable Long id) {
 		Optional<User> user = userRepository.findById(id);
@@ -69,7 +92,11 @@ public class UserService {
 				.orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
 	}
 
-	//@CrossOrigin(origins = "http://localhost:3000")
+	/**
+	 * Returns all Users
+	 * @return Iterable of User
+	 */
+	@CrossOrigin(origins = "http://localhost:3000")
 	@GetMapping(value = "/users")
 	public Iterable<User> getAllUsers() {
 		return userRepository.findAll();

@@ -2,8 +2,6 @@ package com.example.server.models;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
@@ -34,8 +32,6 @@ public class Category {
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "updated_At", length = 30, insertable=false)
 	private Date updatedAt;
-
-
 
 	@CreatedDate
 	@Temporal(TemporalType.TIMESTAMP)
