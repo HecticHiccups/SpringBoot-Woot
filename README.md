@@ -131,7 +131,7 @@ returns json of all products within product entity model
 ## Authors:
 * **Jesus Arteaga**
 
-## Acknowledgments
+## Acknowledgments:
 * [Okta-React-SpringBoot](https://developer.okta.com/blog/2018/07/19/simple-crud-react-and-spring-boot) - Matt Raible
 * [SpringBoot-CRUD](https://geekylearner.com/spring-boot-with-rest-api-example-using-spring-boot-with-jpa/) - Geeky Learner
 
