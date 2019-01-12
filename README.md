@@ -15,7 +15,7 @@ git clone https://github.com/HecticHiccups/SpringBoot-Woot.git
 server.port = 3001
 
 ## Spring DATASOURCE
-spring.datasource.url = jdbc:mysql://localhost/polling_app
+spring.datasource.url = jdbc:mysql://localhost/db_name
 spring.datasource.username = root
 spring.datasource.password = password
 
@@ -126,6 +126,7 @@ returns json of all products within product entity model
 * [Maven](https://maven.apache.org/) - Dependency Management
 * [Spring Boot](https://spring.io/projects/spring-boot) - Spring Boot
 * [JPA](https://spring.io/projects/spring-data-jpa) - JPA
+* [MySQL](https://www.mysql.com/) - MySQL
 
 ## Authors:
 * **Jesus Arteaga**
