@@ -6,6 +6,8 @@ import com.example.server.models.User;
 import java.util.stream.Stream;
 import org.springframework.stereotype.Component;
 
+// Have to annotate this class to mark it as a Spring Bean inside the Spring context.
+@Component
 public class Initializer implements CommandLineRunner {
 
 	private final UserRepository repository;
@@ -16,6 +18,6 @@ public class Initializer implements CommandLineRunner {
 
 	@Override
 	public void run(String...strings){
-
+		// Loads some data.
 	}
 }

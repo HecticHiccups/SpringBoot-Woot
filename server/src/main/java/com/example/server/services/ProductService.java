@@ -5,7 +5,6 @@ import com.example.server.models.Product;
 import com.example.server.repositories.ProductRepository;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,23 +17,28 @@ import java.net.URI;
 
 @RestController
 @RequestMapping("/api")
+@CrossOrigin(origins = "http://localhost:3000")
 public class ProductService {
 
     private final Logger log = LoggerFactory.getLogger(ProductService.class);
 
-    @Autowired
-    private ProductRepository productRepository;
+//    @Autowired
+//    private ProductRepository productRepository;
+//
+//    public ProductService(ProductRepository productRepository){
+//        this.productRepository = productRepository;
+//    }
 
-    public ProductService(ProductRepository productRepository){
+    private final ProductRepository productRepository;
+
+    public ProductService(ProductRepository productRepository) {
         this.productRepository = productRepository;
     }
-
     /**
      * @param product
      * @return ResponseEntity
      * @throws URISyntaxException
      */
-    @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping(value ="/product")
     public ResponseEntity <Product> createProduct(@Valid @RequestBody Product product) throws URISyntaxException{
         log.info("Request to create product: {}", product);
@@ -47,7 +51,6 @@ public class ProductService {
      * @return
      */
 
-    @CrossOrigin(origins = "http://localhost:3000")
     @PutMapping(value = "/product")
     public ResponseEntity<Product> updateProducts(@Valid @RequestBody Product product){
         log.info("Request to update product: {}", product);
@@ -63,7 +66,6 @@ public class ProductService {
      * Todo:Need to find a way to return ResponseEntity...
      * Todo:Not updating correctly, it inserts a new Object instead of Updating
      */
-    @CrossOrigin(origins = "http://localhost:3000")
     @PutMapping(value = "/product/{id}")
     public Product updateProduct(@Valid @RequestBody Product prdct, @PathVariable Long id){
         log.info("Request to update product: {}", prdct);
@@ -89,7 +91,6 @@ public class ProductService {
      * @param id
      * @return
      */
-    @CrossOrigin(origins = "http://localhost:3000")
     @DeleteMapping(value = "/product/{id}")
     public ResponseEntity<Product> deleteProduct(@PathVariable Long id){
         log.info("Request to delete product: {}", id);
@@ -105,7 +106,6 @@ public class ProductService {
      *
      */
 
-    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping(value = "/product/{id}")
     ResponseEntity<?> getProduct(@PathVariable Long id) {
         Optional<Product> product = productRepository.findById(id);
@@ -117,7 +117,6 @@ public class ProductService {
      *
      * @return Iterable
      */
-    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping(value = "/products")
     public Iterable<Product> getAllProducts() {
         return productRepository.findAll();
